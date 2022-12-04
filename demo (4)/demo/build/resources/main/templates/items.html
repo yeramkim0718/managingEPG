@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+</head>
+
+
+<body>
+<div class="container" style="max-width: 1200px">
+
+    <div class="py-5 text-center">
+        <h2>목록</h2>
+        <div class="text-end">
+            <label>ID</label>
+            <p th:text = ${username}> </p>
+            <button type="button" class="btn btn-outline-primary me-2"
+                    th:onclick="|location.href= '@{/logout}'|">Logout</button>
+        </div>
+    </div>
+
+    <form th:action="@{/search}" method="post">
+
+        <div class="row">
+            <div class = "col">
+                <label >plfmCode</label>
+                <select th:name = "plfmCode">
+                    <option th:value="''" selected>선택</option>
+                    <option th:each="oPlfmCode : ${oPlfmCodes}"
+                            th:text = ${oPlfmCode}></option>
+                </select>
+            </div>
+            <div class = "col">
+                <label>sdkVer </label>
+                <select th:name = "sdkVer">
+                    <option th:value="''" selected>선택</option>
+                    <option th:each="oSdkVer : ${oSdkVers}"
+                            th:text = ${oSdkVer}></option>
+                </select>
+            </div>
+            <div class = "col">
+                <label >cntryCode</label>
+                <select th:name = "cntryCode">
+                    <option th:value="''" selected>선택</option>
+                    <option th:each="oCntryCode : ${oCntryCodes}"
+                            th:text = ${oCntryCode}></option>
+                </select>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="bi bi-search" type="submit"
+                ><img src="/search.svg" >search</button>
+            </div>
+        </div>
+    </form>
+
+    <hr class="my-4">
+
+    <div> 총 건수 : <span th:text="${items.totalElements}"></span></div>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>plfm_code</th>
+                <th>sdk_ver</th>
+                <th>cntry_code</th>
+                <th>into Detail</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each=" item : ${items}">
+                <form th:action="@{/detail}" method="post">
+                    <input type="hidden" th:name = "plfmCode" th:value="${item.plfmCode}" />
+                    <input type="hidden" th:name = "sdkVer" th:value="${item.sdkVer}" />
+                    <input type="hidden" th:name = "cntryCode" th:value="${item.cntryCode}" />
+                    <td th:name = item.plfmCode th:text="${item.plfmCode}">plfm_code</td>
+                    <td th:name = item.sdkVer th:text="${item.sdkVer}">sdk_ver</td>
+                    <td th:name = item.cntryCode th:text="${item.cntryCode}">cntry_code</td>
+                    <td>
+                        <button class="btn btn-primary float-end" type="submit">선택</button>
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-primary float-end"
+                th:onclick="|location.href= '@{/insert}'|" type="button">insert</button>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item" th:classappend="${1==items.pageable.pageNumber + 1} ? 'disabled'">
+                <form th:action="@{|/search?page=${items.pageable.pageNumber -1}|}" method="post">
+                    <input type="hidden" th:name = "plfmCode" th:value="${plfmCode}" />
+                    <input type="hidden" th:name = "sdkVer" th:value="${sdkVer}" />
+                    <input type="hidden" th:name = "cntryCode" th:value="${cntryCode}" />
+                <button class="page-link" tabindex="-1" aria-disabled="true" type = submit>Previous</button>
+                </form>
+            </li>
+            <li class="page-item" th:classappend="${i==items.pageable.pageNumber + 1} ? 'disabled'"
+                th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                <form th:action="@{|/search?page=${i-1}|}" method="post">
+                    <input type="hidden" th:name = "plfmCode" th:value="${plfmCode}" />
+                    <input type="hidden" th:name = "sdkVer" th:value="${sdkVer}" />
+                    <input type="hidden" th:name = "cntryCode" th:value="${cntryCode}" />
+                <button class="page-link" type =submit th:text="${i}">1</button>
+                </form>
+            </li>
+
+            <li class="page-item" th:classappend="${items.totalPages <= items.pageable.pageNumber + 1} ? 'disabled'">
+                <form th:action="@{|/search?page=${items.pageable.pageNumber +1}|}" method="post">
+                    <input type="hidden" th:name = "plfmCode" th:value="${plfmCode}" />
+                    <input type="hidden" th:name = "sdkVer" th:value="${sdkVer}" />
+                    <input type="hidden" th:name = "cntryCode" th:value="${cntryCode}" />
+                <button class="page-link" type = submit>Next</button>
+                </form>
+            </li>
+
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

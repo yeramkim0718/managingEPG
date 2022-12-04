@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.demo.model.options.EpgSettingIdTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-29T07:42:31" hostname="DESKTOP-6GFC1O1" time="0.012">
+  <properties/>
+  <testcase name="getEpgSettingIds()" classname="com.example.demo.model.options.EpgSettingIdTest" time="0.012"/>
+  <system-out><![CDATA[base_epg_online
+cdp_support
+guide_detail
+iepg_merged
+ip_ch_map
+ip_epg
+ott_ch_map
+ott_epg
+pbs_ibs_auth
+stb_ch_map
+stb_epg
+tuner_ch_map
+tuner_epg
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

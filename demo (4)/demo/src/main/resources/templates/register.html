@@ -1,0 +1,26 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/static.css/signin.css}" rel="stylesheet">
+</head>
+<body class="text-center">
+<main class="form-register">
+    <form th:action = "@{/register}" method = post>
+        <h1 class="h3 mb-3 fw-normal">회원가입</h1>
+        <label for="username" class="visually-hidden">user</label>
+        <input type="text" id="username" name = "username" class="form-control" placeholder="user" required autofocus>
+        <label for="password" class="visually-hidden">Password</label>
+        <input type="password" id="password" name = "password" class="form-control" placeholder="password" required>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">회원가입</button>
+    </form>
+</main>
+
+
+
+</body>
+</html>

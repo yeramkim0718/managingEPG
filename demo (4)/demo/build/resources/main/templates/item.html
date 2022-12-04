@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link  th:href= "@{/css/bootstrap.min.css}"
+           href="../css/bootstrap.min.css" rel="stylesheet">
+    <style> .container {
+ max-width: 900px;
+ }
+ </style>
+</head>
+
+<body>
+<div class="container">
+    <div class = "py-5 text-center">
+    <h4>
+        <p th:text= "|plfmCode : ${item.plfmCode}|" >plfmCode</p>
+        <p th:text = "|sdkVer : ${item.sdkVer}|" >sdkVer</p>
+        <p th:text = "|cntryCode : ${item.cntryCode}|">cntryCode</p>
+    </h4>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-primary float-end"
+                th:onclick="|location.href= '@{/insert}'|" type="button">insert</button>
+    </div>
+    <table class="table">
+        <thead>
+            <td>epgSettingId</td>
+            <td>useFlag</td>
+            <td>activYn</td>
+            <td>생성날짜</td>
+            <td>수정날짜</td>
+            <td>생성유저</td>
+            <td>수정유저</td>
+            <td>수정_userFlag</td>
+            <td>수정_activeYn</td>
+            <td>수정</td>
+            <td>삭제</td>
+
+        </thead>
+        <div>
+        <tbody>
+
+        <tr th:each=" epg : ${epgs}">
+            <td th:text="${epg.epgSettingId}">epgSettingId</td>
+            <td th:text="${epg.useFlag}">useFlag</td>
+            <td th:text="${epg.activeYn}">activeYn</td>
+            <td th:text="${#temporals.format(epg.crtDate, 'yyyy-MM-dd HH:mm:ss')}">crtDate</td>
+            <td th:text="${#temporals.format(epg.lastChgDate, 'yyyy-MM-dd HH:mm:ss')}">lastChgDate</td>
+            <td th:text="${epg.genUsrNo}">genUsrNo</td>
+            <td th:text="${epg.lastChgUsrNo}">lastChgUsrNo</td>
+
+            <form th:action="@{/edit}" method="post">
+            <td>
+                <select th:id = "useFlag" th:name = "useFlag" class = "form-control">
+                    <option th:value="''" selected>선택</option>
+                    <option>Y</option>
+                    <option>N</option>
+                </select>
+            </td>
+            <td>
+                <select th:id = "activeYn" th:name = "activeYn" class = "form-control">
+                    <option th:value="''" selected>선택</option>
+                    <option>Y</option>
+                    <option>N</option>
+                </select>
+            </td>
+
+                <input type="hidden" id="sdkVer" name="sdkVer" class="form-control"
+                       th:value="${item.sdkVer}" readonly>
+                <input type="hidden" id="plfmCode" name="plfmCode" class="form-control"
+                       th:value="${item.plfmCode}" readonly>
+                <input type="hidden" id="cntryCode" name="cntryCode" class="form-control"
+                       th:value="${item.cntryCode}" readonly>
+                <input type="hidden" id="epgSettingId" name="epgSettingId" class="form-control"
+                       th:value="${epg.epgSettingId}" readonly>
+
+                <td>
+                    <button class="btn btn-primary " type="submit">수정</button>
+                </td>
+            </form>
+            <form th:action="@{/delete}" method="post">
+                <input type="hidden" name="sdkVer" class="form-control"
+                       th:value="${item.sdkVer}" readonly>
+                <input type="hidden" name="plfmCode" class="form-control"
+                       th:value="${item.plfmCode}" readonly>
+                <input type="hidden" name="cntryCode" class="form-control"
+                       th:value="${item.cntryCode}" readonly>
+                <input type="hidden"  name="epgSettingId" class="form-control"
+                       th:value="${epg.epgSettingId}" readonly>
+                <td>
+                    <button class="btn btn-primary " type="submit">삭제</button>
+                </td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

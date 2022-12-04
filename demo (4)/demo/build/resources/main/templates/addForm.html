@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"> <link href="../css/bootstrap.min.css"
+                                 th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+ .container {
+ max-width: 560px;
+ }
+ </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>입력 폼</h2>
+    </div>
+    <h4 class="mb-3">입력</h4>
+    <form th:action method="post" th:object="${epg}">
+        <div>
+            <label>epg setting id</label>
+            <select th:name = "epgSettingId" class = "form-control">
+                <option th:value="''" selected>선택</option>
+                <option th:each="oEpgSettingId : ${oEpgSettingIds}"
+                        th:text = ${oEpgSettingId}></option>
+            </select>
+        </div>
+        <div>
+            <label >plfmCode</label>
+            <select th:name = "plfmCode" class = "form-control">
+                <option th:value="''" selected>선택</option>
+                <option th:each="oPlfmCode : ${oPlfmCodes}"
+                        th:text = ${oPlfmCode}></option>
+            </select>
+        </div>
+        <div>
+            <label for>sdkVer</label>
+            <select th:name = "sdkVer" class = "form-control">
+                <option th:value="''" selected>선택</option>
+                <option th:each="oSdkVer : ${oSdkVers}"
+                        th:text = ${oSdkVer}></option>
+            </select>
+        </div>
+        <div>
+            <label >cntryCode</label>
+            <select th:name="cntryCode" class = "form-control">
+                <option th:value="''" selected>선택</option>
+                <option th:each="oCntryCode : ${oCntryCodes}"
+                        th:text = ${oCntryCode}></option>
+            </select>
+        </div>
+        <div>
+            <label >activeYn</label>
+            <select th:name="activeYn" class = "form-control">
+                <option th:value="''" selected>선택</option>
+                <option>Y</option>
+                <option>N</option>
+            </select>
+        </div>
+        <div>
+            <label >useFlag</label>
+            <select th:name="useFlag" class = "form-control">
+                <option th:value="''" selected>선택</option>
+                <option>Y</option>
+                <option>N</option>
+            </select>
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col"> <button class="w-100 btn btn-primary btn-lg"
+                                      th:onclick="@{/}" type="submit">등록</button>
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='items.html'"
+                        th:onclick="|location.href='@{/}'|"
+                        type="button">취소</button>
+            </div>
+        </div>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>
